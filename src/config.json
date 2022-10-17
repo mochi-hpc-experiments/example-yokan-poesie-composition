@@ -1,0 +1,34 @@
+{
+    "libraries": {
+        "poesie": "libpoesie-bedrock-module.so",
+        "yokan": "libyokan-bedrock-module.so"
+    },
+    "providers": [
+        {
+            "name": "my_yokan_provider",
+            "type": "yokan",
+            "provider_id": 0,
+            "config": {
+                "databases": [
+                    {
+                        "name": "my_kv_store",
+                        "type": "map"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "my_poesie_provider",
+            "type": "poesie",
+            "provider_id": 0,
+            "config": {
+                "vms": {
+                    "my_python_vm": {
+                        "language": "python",
+                        "preamble": "from pymargo.core import Engine; from pyyokan_client import Client as YokanClient; engine = Engine.from_margo_instance_id(__mid__); address = engine.address; client = YokanClient(__mid__); database = client.find_database_by_name(address=address.hg_addr, provider_id=0, name='my_kv_store')"
+                    }
+                }
+            }
+        }
+    ]
+}
