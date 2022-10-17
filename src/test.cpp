@@ -48,9 +48,9 @@ static void write_with_yokan(margo_instance_id mid, hg_addr_t addr) {
 }
 
 static const char* code = R"python(
-value_len = database.length("my_key")
+value_len = my_kv_store.length("my_key")
 value_buf = bytearray(value_len)
-database.get("my_key", value_buf)
+my_kv_store.get("my_key", value_buf)
 __poesie_output__ = value_buf.decode("utf-8")
 )python";
 
